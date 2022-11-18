@@ -1,0 +1,49 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    vector<vector<int>> levelOrder(TreeNode* root) {
+            
+        vector<vector<int>> result;
+        vector<int> row;
+
+        if(!root)
+            return result;
+
+        queue<TreeNode*>  que;
+        que.push(root);
+
+        int c = 1;
+        while(!que.empty()){
+
+            if(que.front()->left)
+                que.push(que.front()->left);
+            if(que.front()->right)
+                que.push(que.front()->right);
+
+            row.push_back(que.front()->val);
+            que.pop();
+
+            if(--c == 0){
+                result.push_back(row);
+                row.clear();
+                c = que.size();
+            }
+        }
+        return result;
+
+    }
+};
+
+/* Problem Statement
+Given the root of a binary tree, return the level order traversal of its nodes' values. (i.e., from left to right, level by level).
+*/
