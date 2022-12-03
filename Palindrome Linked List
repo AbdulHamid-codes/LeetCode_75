@@ -1,0 +1,39 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+
+class Solution {
+public:
+    bool isPalindrome(ListNode* head) {
+        stack<int> nodeStack;
+        ListNode* traverse = head;
+        ListNode* checking = head;
+        while(traverse){
+            nodeStack.push(traverse->val);
+            traverse  = traverse->next;
+        }
+
+        while(checking){
+            int stackTop = nodeStack.top();
+            //cout<<checking->val <<" " << stackTop<<endl;
+            if(checking->val != stackTop)
+                return false;
+            checking = checking->next;
+            nodeStack.pop();
+        }
+
+        return true;
+    }
+};
+/* Problem Statement
+Given the head of a singly linked list, return true if it is a 
+palindrome
+ or false otherwise.
+ */
